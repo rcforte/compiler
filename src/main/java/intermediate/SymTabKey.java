@@ -1,4 +1,5 @@
 package intermediate;
 
-public interface SymTabKey {
+public interface SymTabKey
+{
 }

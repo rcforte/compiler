@@ -1,4 +1,5 @@
 package intermediate;
 
-public class ICode {
+public class ICode
+{
 }

@@ -10,46 +10,71 @@ import static frontend.Source.EOF;
 import static frontend.pascal.PascalErrorCode.INVALID_CHARACTER;
 import static frontend.pascal.PascalTokenType.SPECIAL_SYMBOLS;
 
-public class PascalScanner extends Scanner {
-  public PascalScanner(Source source) {
-    super(source);
-  }
-
-  @Override
-  public Token extractToken() throws Exception {
-    skipWhitespace();
-    char cur = currentChar();
-    if (cur == EOF) {
-      return new EofToken(source);
-    } else if (Character.isLetter(cur)) {
-      return new PascalWordToken(source);
-    } else if (Character.isDigit(cur)) {
-      return new PascalNumberToken(source);
-    } else if (cur == '\'') {
-      return new PascalStringToken(source);
-    } else if (SPECIAL_SYMBOLS.containsKey(Character.toString(cur))) {
-      return new PascalSpecialSymbolToken(source);
-    } else {
-      var res = new PascalErrorToken(source, INVALID_CHARACTER, Character.toString(cur));
-      nextChar();
-      return res;
+public class PascalScanner
+    extends Scanner
+{
+    public PascalScanner(Source source)
+    {
+        super(source);
     }
-  }
 
-  private void skipWhitespace() throws Exception {
-    char cur = currentChar();
-    while (Character.isWhitespace(cur) || cur == '{') {
-      if (cur == '{') {
-        cur = nextChar();
-        while (cur != '}' && cur != EOF) {
-          cur = nextChar();
+    @Override
+    public Token extractToken()
+        throws Exception
+    {
+        skipWhitespace();
+
+        var current = currentChar();
+        if (current == EOF)
+        {
+            return new EofToken(source);
         }
-        if (cur == '}') {
-          cur = nextChar();
+        else if (Character.isLetter(current))
+        {
+            return new PascalWordToken(source);
         }
-      } else {
-        cur = nextChar();
-      }
+        else if (Character.isDigit(current))
+        {
+            return new PascalNumberToken(source);
+        }
+        else if (current == '\'')
+        {
+            return new PascalStringToken(source);
+        }
+        else if (SPECIAL_SYMBOLS.containsKey(Character.toString(current)))
+        {
+            return new PascalSpecialSymbolToken(source);
+        }
+        else
+        {
+            var result = new PascalErrorToken(source, INVALID_CHARACTER, Character.toString(current));
+            nextChar();
+            return result;
+        }
     }
-  }
+
+    private void skipWhitespace()
+        throws Exception
+    {
+        var current = currentChar();
+        while (Character.isWhitespace(current) || current == '{')
+        {
+            if (current == '{')
+            {
+                current = nextChar();
+                while (current != '}' && current != EOF)
+                {
+                    current = nextChar();
+                }
+                if (current == '}')
+                {
+                    current = nextChar();
+                }
+            }
+            else
+            {
+                current = nextChar();
+            }
+        }
+    }
 }

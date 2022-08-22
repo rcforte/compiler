@@ -9,43 +9,61 @@ import java.io.IOException;
 
 import static frontend.Source.EOF;
 
-public class PascalStringToken extends PascalToken {
-  public PascalStringToken(Source source) throws Exception {
-    super(source);
-  }
+public class PascalStringToken
+    extends PascalToken
+{
+    public PascalStringToken(Source source)
+        throws Exception
+    {
+        super(source);
+    }
 
-  @Override
-  protected void extract() throws IOException {
-    var curr = nextChar();
-    var textBuffer = new StringBuilder();
-    textBuffer.append("'");
-    var valueBuffer = new StringBuilder();
-    while (curr != '\'' && curr != EOF) {
-      if (Character.isWhitespace(curr)) {
-        curr = ' ';
-      }
-      textBuffer.append(curr);
-      valueBuffer.append(curr);
-      curr = nextChar();
-      if (curr == '\'') {
-        while (curr == '\'' && peekChar() == '\'') {
-          textBuffer.append("''");
-          valueBuffer.append("'");
-          curr = nextChar();
-          curr = nextChar();
+    @Override
+    protected void extract()
+        throws IOException
+    {
+        var current = nextChar();
+        var textBuffer = new StringBuilder();
+        var valueBuffer = new StringBuilder();
+
+        textBuffer.append("'");
+
+        while (current != '\'' && current != EOF)
+        {
+            if (Character.isWhitespace(current))
+            {
+                current = ' ';
+            }
+
+            textBuffer.append(current);
+            valueBuffer.append(current);
+            current = nextChar();
+
+            if (current == '\'')
+            {
+                while (current == '\'' && peekChar() == '\'')
+                {
+                    textBuffer.append("''");
+                    valueBuffer.append("'");
+                    current = nextChar();
+                    current = nextChar();
+                }
+            }
         }
-      }
+
+        if (current == '\'')
+        {
+            nextChar();
+            textBuffer.append("'");
+            text = textBuffer.toString();
+            value = valueBuffer.toString();
+            type = PascalTokenType.STRING;
+        }
+        else
+        {
+            type = PascalTokenType.ERROR;
+            value = PascalErrorCode.UNEXPECTED_EOF;
+            text = textBuffer.toString();
+        }
     }
-    if (curr == '\'') {
-      nextChar();
-      textBuffer.append("'");
-      text = textBuffer.toString();
-      value = valueBuffer.toString();
-      type = PascalTokenType.STRING;
-    } else {
-      type = PascalTokenType.ERROR;
-      value = PascalErrorCode.UNEXPECTED_EOF;
-      text = textBuffer.toString();
-    }
-  }
 }
