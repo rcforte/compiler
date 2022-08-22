@@ -11,42 +11,28 @@ import static frontend.pascal.PascalErrorCode.INVALID_CHARACTER;
 import static frontend.pascal.PascalTokenType.SPECIAL_SYMBOLS;
 
 public class PascalScanner
-    extends Scanner
-{
-    public PascalScanner(Source source)
-    {
+        extends Scanner {
+    public PascalScanner(Source source) {
         super(source);
     }
 
     @Override
     public Token extractToken()
-        throws Exception
-    {
+            throws Exception {
         skipWhitespace();
 
         var current = currentChar();
-        if (current == EOF)
-        {
+        if (current == EOF) {
             return new EofToken(source);
-        }
-        else if (Character.isLetter(current))
-        {
+        } else if (Character.isLetter(current)) {
             return new PascalWordToken(source);
-        }
-        else if (Character.isDigit(current))
-        {
+        } else if (Character.isDigit(current)) {
             return new PascalNumberToken(source);
-        }
-        else if (current == '\'')
-        {
+        } else if (current == '\'') {
             return new PascalStringToken(source);
-        }
-        else if (SPECIAL_SYMBOLS.containsKey(Character.toString(current)))
-        {
+        } else if (SPECIAL_SYMBOLS.containsKey(Character.toString(current))) {
             return new PascalSpecialSymbolToken(source);
-        }
-        else
-        {
+        } else {
             var result = new PascalErrorToken(source, INVALID_CHARACTER, Character.toString(current));
             nextChar();
             return result;
@@ -54,25 +40,18 @@ public class PascalScanner
     }
 
     private void skipWhitespace()
-        throws Exception
-    {
+            throws Exception {
         var current = currentChar();
-        while (Character.isWhitespace(current) || current == '{')
-        {
-            if (current == '{')
-            {
+        while (Character.isWhitespace(current) || current == '{') {
+            if (current == '{') {
                 current = nextChar();
-                while (current != '}' && current != EOF)
-                {
+                while (current != '}' && current != EOF) {
                     current = nextChar();
                 }
-                if (current == '}')
-                {
+                if (current == '}') {
                     current = nextChar();
                 }
-            }
-            else
-            {
+            } else {
                 current = nextChar();
             }
         }

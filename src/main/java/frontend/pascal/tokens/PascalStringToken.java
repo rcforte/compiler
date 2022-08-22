@@ -10,28 +10,23 @@ import java.io.IOException;
 import static frontend.Source.EOF;
 
 public class PascalStringToken
-    extends PascalToken
-{
+        extends PascalToken {
     public PascalStringToken(Source source)
-        throws Exception
-    {
+            throws Exception {
         super(source);
     }
 
     @Override
     protected void extract()
-        throws IOException
-    {
+            throws IOException {
         var current = nextChar();
         var textBuffer = new StringBuilder();
         var valueBuffer = new StringBuilder();
 
         textBuffer.append("'");
 
-        while (current != '\'' && current != EOF)
-        {
-            if (Character.isWhitespace(current))
-            {
+        while (current != '\'' && current != EOF) {
+            if (Character.isWhitespace(current)) {
                 current = ' ';
             }
 
@@ -39,10 +34,8 @@ public class PascalStringToken
             valueBuffer.append(current);
             current = nextChar();
 
-            if (current == '\'')
-            {
-                while (current == '\'' && peekChar() == '\'')
-                {
+            if (current == '\'') {
+                while (current == '\'' && peekChar() == '\'') {
                     textBuffer.append("''");
                     valueBuffer.append("'");
                     current = nextChar();
@@ -51,16 +44,13 @@ public class PascalStringToken
             }
         }
 
-        if (current == '\'')
-        {
+        if (current == '\'') {
             nextChar();
             textBuffer.append("'");
             text = textBuffer.toString();
             value = valueBuffer.toString();
             type = PascalTokenType.STRING;
-        }
-        else
-        {
+        } else {
             type = PascalTokenType.ERROR;
             value = PascalErrorCode.UNEXPECTED_EOF;
             text = textBuffer.toString();

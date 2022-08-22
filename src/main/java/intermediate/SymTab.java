@@ -2,8 +2,7 @@ package intermediate;
 
 import java.util.List;
 
-public interface SymTab
-{
+public interface SymTab {
     public int getNestingLevel();
 
     public SymTabEntry enter(String name);

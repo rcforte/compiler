@@ -7,22 +7,18 @@ import message.MessageHandler;
 import message.MessageListener;
 import message.MessageProducer;
 
-public abstract class Backend implements MessageProducer
-{
+public abstract class Backend implements MessageProducer {
     private final MessageHandler messageHandler = new MessageHandler();
 
-    public void addMessageListener(MessageListener l)
-    {
+    public void addMessageListener(MessageListener l) {
         messageHandler.addMessageListener(l);
     }
 
-    public void removeMessageListener(MessageListener l)
-    {
+    public void removeMessageListener(MessageListener l) {
         messageHandler.removeMessageListener(l);
     }
 
-    public void sendMessage(Message message)
-    {
+    public void sendMessage(Message message) {
         messageHandler.sendMessage(message);
     }
 

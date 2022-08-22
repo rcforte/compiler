@@ -1,7 +1,6 @@
 package frontend.pascal;
 
-public enum PascalErrorCode
-{
+public enum PascalErrorCode {
     ALREADY_FORWARDED("Already specified in FORWARD"),
     IDENTIFIER_REDEFINED("Redefined identifier"),
     IDENTIFIER_UNDEFINED("Undefined identifier"),
@@ -66,31 +65,26 @@ public enum PascalErrorCode
     private final int status;
     private final String message;
 
-    PascalErrorCode(String message)
-    {
+    PascalErrorCode(String message) {
         this.status = 0;
         this.message = message;
     }
 
-    PascalErrorCode(int status, String message)
-    {
+    PascalErrorCode(int status, String message) {
         this.status = status;
         this.message = message;
     }
 
-    public int getStatus()
-    {
+    public int getStatus() {
         return status;
     }
 
-    public String getMessage()
-    {
+    public String getMessage() {
         return message;
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return message;
     }
 }

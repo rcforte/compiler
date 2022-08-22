@@ -8,52 +8,44 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class SymTabEntryImpl extends HashMap<SymTabKey, Object> implements SymTabEntry
-{
+public class SymTabEntryImpl extends HashMap<SymTabKey, Object> implements SymTabEntry {
     private String name;
     private SymTab symTab;
     private List<Integer> lineNumbers;
 
-    public SymTabEntryImpl(String name, SymTab symTab)
-    {
+    public SymTabEntryImpl(String name, SymTab symTab) {
         this.name = name;
         this.symTab = symTab;
         this.lineNumbers = new ArrayList<>();
     }
 
     @Override
-    public String getName()
-    {
+    public String getName() {
         return name;
     }
 
     @Override
-    public SymTab getSymTab()
-    {
+    public SymTab getSymTab() {
         return symTab;
     }
 
     @Override
-    public void appendLineNumber(int lineNumber)
-    {
+    public void appendLineNumber(int lineNumber) {
         lineNumbers.add(lineNumber);
     }
 
     @Override
-    public List<Integer> getLineNumbers()
-    {
+    public List<Integer> getLineNumbers() {
         return lineNumbers;
     }
 
     @Override
-    public void setAttribute(SymTabKey key, Object value)
-    {
+    public void setAttribute(SymTabKey key, Object value) {
         put(key, value);
     }
 
     @Override
-    public Object getAttribute(SymTabKey key)
-    {
+    public Object getAttribute(SymTabKey key) {
         return get(key);
     }
 }

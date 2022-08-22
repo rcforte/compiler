@@ -8,18 +8,15 @@ import static frontend.pascal.PascalErrorCode.RANGE_REAL;
 import static frontend.pascal.PascalTokenType.*;
 
 public class PascalNumberToken
-    extends PascalToken
-{
+    extends PascalToken {
     public PascalNumberToken(Source source)
-        throws Exception
-    {
+        throws Exception {
         super(source);
     }
 
     @Override
     public void extract()
-        throws Exception
-    {
+        throws Exception {
         this.type = INTEGER;
 
         var textBuffer = new StringBuilder();
@@ -29,12 +26,10 @@ public class PascalNumberToken
     }
 
     private void extractNumber(StringBuilder textBuffer)
-        throws Exception
-    {
+        throws Exception {
+        // Extract the integer part of the number.
         var whole = unsignedIntegerDigits(textBuffer);
-
-        if (type == ERROR)
-        {
+        if (type == ERROR) {
             return;
         }
 
@@ -42,126 +37,108 @@ public class PascalNumberToken
         var sawDotDot = false;
         var fractional = "";
 
-        if (current == '.')
-        {
-            if (peekChar() == '.')
-            {
+        // Check if this is a real number.
+        if (current == '.') {
+            // Check if this is a dot dot operator.
+            if (peekChar() == '.') {
                 sawDotDot = true;
-            }
-            else
-            {
+            } else {
                 type = REAL;
                 textBuffer.append(current);
-                current = nextChar();
-                fractional = unsignedIntegerDigits(textBuffer);
+                nextChar();
 
-                if (type == ERROR)
-                {
+                // Extract the fractional part of the number.
+                fractional = unsignedIntegerDigits(textBuffer);
+                if (type == ERROR) {
                     return;
                 }
             }
         }
-        current = currentChar();
 
+        current = currentChar();
         var sign = '+';
         var exponent = "";
-        if (!sawDotDot && (current == 'e' || current == 'E'))
-        {
+
+        // Check if it has an exponent.
+        if (!sawDotDot && (current == 'e' || current == 'E')) {
             type = REAL;
             textBuffer.append(current);
             current = nextChar();
-            if (current == '+' || current == '-')
-            {
+
+            // Check if it has an exponent sign.
+            if (current == '+' || current == '-') {
                 textBuffer.append(current);
                 sign = current;
                 current = nextChar();
             }
+
+            // Extract the exponent part of the number.
             exponent = unsignedIntegerDigits(textBuffer);
-            if (type == ERROR)
-            {
+            if (type == ERROR) {
                 return;
             }
         }
 
-        if (type == INTEGER)
-        {
+        // Convert the extracted integer string to an int.
+        if (type == INTEGER) {
             var num = computeInt(whole);
-            if (type != ERROR)
-            {
+            if (type != ERROR) {
                 value = num;
             }
-        }
-        else if (type == REAL)
-        {
+        } else if (type == REAL) {
+            // Convert the extracted real string into a float.
             var num = computeReal(whole, fractional, exponent, sign);
-            if (type != ERROR)
-            {
+            if (type != ERROR) {
                 value = num;
             }
         }
     }
 
-    private float computeReal(String whole, String fractional, String exponent, char esign)
-    {
+    private float computeReal(String whole, String fractional, String exponent, char esign) {
         var exponentValue = computeInt(exponent);
-        if (esign == '-')
-        {
+        if (esign == '-') {
             exponentValue = -exponentValue;
         }
 
         var digits = whole;
-
-        if (fractional != null)
-        {
+        if (fractional != null) {
             digits += fractional;
             exponentValue -= fractional.length();
         }
 
-        if (Math.abs(exponentValue + whole.length()) > 100)
-        {
+        if (Math.abs(exponentValue + whole.length()) > 100) {
             type = ERROR;
             value = RANGE_REAL;
             return 0.0f;
         }
 
-        float res = 0.0f;
-
+        var result = (float) 0.0f;
         var index = 0;
-        while (index < digits.length())
-        {
-            res = res * 10 + Character.getNumericValue(digits.charAt(index));
-            index++;
+        while (index < digits.length()) {
+            result = result * 10 + Character.getNumericValue(digits.charAt(index++));
         }
 
-        if (exponentValue != 0)
-        {
-            res *= Math.pow(10, exponentValue);
+        if (exponentValue != 0) {
+            result *= Math.pow(10, exponentValue);
         }
-
-        return res;
+        return result;
     }
 
-    private int computeInt(String digits)
-    {
-        if (digits == null)
-        {
+    private int computeInt(String digits) {
+        if (digits == null) {
             return 0;
         }
 
         var result = 0;
         var previous = -1;
         var index = 0;
-
-        while (index < digits.length() && result >= previous)
-        {
+        while (index < digits.length() && result >= previous) {
             previous = result;
-            result = result * 10 + Character.getNumericValue(digits.charAt(index));
-            index++;
+            result = result * 10 + Character.getNumericValue(digits.charAt(index++));
         }
 
-        if (result < previous)
-        {
-            // overflow
+        // Checks for overflow.
+        if (result < previous) {
             type = ERROR;
             value = PascalErrorCode.RANGE_INTEGER;
             return 0;
@@ -171,25 +148,20 @@ public class PascalNumberToken
     }
 
     private String unsignedIntegerDigits(StringBuilder buffer)
-        throws Exception
-    {
+        throws Exception {
         var current = currentChar();
-        if (!Character.isDigit(current))
-        {
+        if (!Character.isDigit(current)) {
             type = ERROR;
             value = PascalErrorCode.INVALID_NUMBER;
             return null;
         }
 
         var digits = new StringBuilder();
-        while (Character.isDigit(current))
-        {
+        while (Character.isDigit(current)) {
             digits.append(current);
             buffer.append(current);
-
             current = nextChar();
         }
-
         return digits.toString();
     }
 }

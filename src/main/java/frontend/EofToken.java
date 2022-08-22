@@ -1,17 +1,14 @@
 package frontend;
 
 public class EofToken
-    extends Token
-{
+        extends Token {
     public EofToken(Source source)
-        throws Exception
-    {
+            throws Exception {
         super(source);
     }
 
     @Override
     protected void extract()
-        throws Exception
-    {
+            throws Exception {
     }
 }

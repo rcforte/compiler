@@ -1,7 +1,6 @@
 package intermediate;
 
-public interface SymTabStack
-{
+public interface SymTabStack {
     public int getCurrentNestingLevel();
 
     public SymTab getLocalSymTab();

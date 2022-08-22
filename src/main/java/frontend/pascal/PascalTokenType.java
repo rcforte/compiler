@@ -7,8 +7,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-public enum PascalTokenType implements TokenType
-{
+public enum PascalTokenType implements TokenType {
     // Reserved words.
     AND, ARRAY, BEGIN, CASE, CONST, DIV, DO, DOWNTO, ELSE, END, FILE, FOR, FUNCTION, GOTO, IF, IN, LABEL, MOD, NIL, NOT,
     OF, OR, PACKED, PROCEDURE, PROGRAM, RECORD, REPEAT, SET, THEN, TO, TYPE, UNTIL, VAR, WHILE, WITH,
@@ -28,37 +27,31 @@ public enum PascalTokenType implements TokenType
 
     private String text;
 
-    PascalTokenType()
-    {
+    PascalTokenType() {
         this.text = this.toString().toLowerCase();
     }
 
-    PascalTokenType(String text)
-    {
+    PascalTokenType(String text) {
         this.text = text;
     }
 
-    public String getText()
-    {
+    public String getText() {
         return text;
     }
 
     public static Set<String> RESERVED_WORDS = new HashSet<>();
     public static Map<String, PascalTokenType> SPECIAL_SYMBOLS = new HashMap<>();
 
-    static
-    {
+    static {
         var values = PascalTokenType.values();
         for (int i = FIRST_RESERVED_INDEX;
              i <= LAST_RESERVED_INDEX;
-             i++)
-        {
+             i++) {
             RESERVED_WORDS.add(values[i].getText().toUpperCase());
         }
         for (int i = FIRST_SPECIAL_INDEX;
              i <= LAST_SPECIAL_INDEX;
-             i++)
-        {
+             i++) {
             SPECIAL_SYMBOLS.put(values[i].getText(), values[i]);
         }
     }

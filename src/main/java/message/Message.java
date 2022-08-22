@@ -1,23 +1,19 @@
 package message;
 
-public class Message
-{
+public class Message {
     private final MessageType type;
     private final Object body;
 
-    public Message(MessageType type, Object body)
-    {
+    public Message(MessageType type, Object body) {
         this.type = type;
         this.body = body;
     }
 
-    public MessageType messageType()
-    {
+    public MessageType messageType() {
         return type;
     }
 
-    public Object getBody()
-    {
+    public Object getBody() {
         return body;
     }
 }

@@ -1,5 +1,4 @@
 package frontend;
 
-public interface TokenType
-{
+public interface TokenType {
 }

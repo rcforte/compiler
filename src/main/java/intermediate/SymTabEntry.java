@@ -2,8 +2,7 @@ package intermediate;
 
 import java.util.List;
 
-public interface SymTabEntry
-{
+public interface SymTabEntry {
     public String getName();
 
     public SymTab getSymTab();

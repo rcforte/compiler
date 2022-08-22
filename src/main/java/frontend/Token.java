@@ -2,8 +2,7 @@ package frontend;
 
 import java.io.IOException;
 
-public class Token
-{
+public class Token {
     protected TokenType type;
     protected String text;
     protected Object value;
@@ -12,10 +11,8 @@ public class Token
     protected int position;
 
     public Token(Source source)
-        throws Exception
-    {
-        if (source == null)
-        {
+            throws Exception {
+        if (source == null) {
             throw new IllegalArgumentException("source cannot be null");
         }
 
@@ -26,34 +23,28 @@ public class Token
         extract();
     }
 
-    public int getLineNumber()
-    {
+    public int getLineNumber() {
         return lineNumber;
     }
 
-    public int getPosition()
-    {
+    public int getPosition() {
         return position;
     }
 
-    public TokenType getType()
-    {
+    public TokenType getType() {
         return type;
     }
 
-    public String getText()
-    {
+    public String getText() {
         return text;
     }
 
-    public Object getValue()
-    {
+    public Object getValue() {
         return value;
     }
 
     protected void extract()
-        throws Exception
-    {
+            throws Exception {
         this.text = Character.toString(currentChar());
         this.value = null;
 
@@ -61,26 +52,22 @@ public class Token
     }
 
     public char currentChar()
-        throws IOException
-    {
+            throws IOException {
         return source.currentChar();
     }
 
     public char nextChar()
-        throws IOException
-    {
+            throws IOException {
         return source.nextChar();
     }
 
     public char peekChar()
-        throws IOException
-    {
+            throws IOException {
         return source.peekChar();
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return "text=" + text + ", value=" + value;
     }
 }

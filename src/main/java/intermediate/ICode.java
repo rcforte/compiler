@@ -1,5 +1,7 @@
 package intermediate;
 
-public class ICode
-{
+public interface ICode {
+    public ICodeNode setRoot(ICodeNode node);
+
+    public ICodeNode getRoot();
 }

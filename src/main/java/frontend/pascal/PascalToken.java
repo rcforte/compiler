@@ -4,11 +4,9 @@ import frontend.Source;
 import frontend.Token;
 
 public class PascalToken
-    extends Token
-{
+        extends Token {
     public PascalToken(Source source)
-        throws Exception
-    {
+            throws Exception {
         super(source);
     }
 }

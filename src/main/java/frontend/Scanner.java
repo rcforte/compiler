@@ -2,15 +2,12 @@ package frontend;
 
 import java.io.IOException;
 
-public abstract class Scanner
-{
+public abstract class Scanner {
     protected Token currentToken;
     protected final Source source;
 
-    public Scanner(Source source)
-    {
-        if (source == null)
-        {
+    public Scanner(Source source) {
+        if (source == null) {
             throw new IllegalArgumentException("source cannot be null");
         }
 
@@ -18,29 +15,25 @@ public abstract class Scanner
     }
 
     public char currentChar()
-        throws IOException
-    {
+            throws IOException {
         return source.currentChar();
     }
 
     public char nextChar()
-        throws IOException
-    {
+            throws IOException {
         return source.nextChar();
     }
 
-    public Token currentToken()
-    {
+    public Token currentToken() {
         return currentToken;
     }
 
     public Token nextToken()
-        throws Exception
-    {
+            throws Exception {
         currentToken = extractToken();
         return currentToken;
     }
 
     public abstract Token extractToken()
-        throws Exception;
+            throws Exception;
 }

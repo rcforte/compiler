@@ -6,11 +6,9 @@ import intermediate.SymTabStack;
 import message.Message;
 import message.MessageType;
 
-public class CodeGenerator extends Backend
-{
+public class CodeGenerator extends Backend {
     @Override
-    public void process(ICode icode, SymTabStack symtab)
-    {
+    public void process(ICode icode, SymTabStack symtab) {
         long t0 = System.currentTimeMillis();
         long t1 = System.currentTimeMillis();
         int instructionCount = 0;
