@@ -14,8 +14,7 @@ public class CompoundStatementParser extends StatementParser {
         super(parser);
     }
 
-    public ICodeNode parse(Token token)
-            throws Exception {
+    public ICodeNode parse(Token token) throws Exception {
         token = nextToken();
 
         var compoundNode = ICodeFactory.createICodeNode(COMPOUND);

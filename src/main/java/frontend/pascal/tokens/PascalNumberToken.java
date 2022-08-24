@@ -7,16 +7,14 @@ import frontend.pascal.PascalToken;
 import static frontend.pascal.PascalErrorCode.RANGE_REAL;
 import static frontend.pascal.PascalTokenType.*;
 
-public class PascalNumberToken
-    extends PascalToken {
+public class PascalNumberToken extends PascalToken {
     public PascalNumberToken(Source source)
-        throws Exception {
+            throws Exception {
         super(source);
     }
 
     @Override
-    public void extract()
-        throws Exception {
+    public void extract() throws Exception {
         this.type = INTEGER;
 
         var textBuffer = new StringBuilder();
@@ -25,8 +23,7 @@ public class PascalNumberToken
         this.text = textBuffer.toString();
     }
 
-    private void extractNumber(StringBuilder textBuffer)
-        throws Exception {
+    private void extractNumber(StringBuilder textBuffer) throws Exception {
         // Extract the integer part of the number.
         var whole = unsignedIntegerDigits(textBuffer);
         if (type == ERROR) {
@@ -147,8 +144,7 @@ public class PascalNumberToken
         return result;
     }
 
-    private String unsignedIntegerDigits(StringBuilder buffer)
-        throws Exception {
+    private String unsignedIntegerDigits(StringBuilder buffer) throws Exception {
         var current = currentChar();
         if (!Character.isDigit(current)) {
             type = ERROR;

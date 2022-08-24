@@ -8,19 +8,27 @@ import message.MessageListener;
 import message.MessageProducer;
 
 public abstract class Backend implements MessageProducer {
-    private final MessageHandler messageHandler = new MessageHandler();
+    protected static MessageHandler messageHandler = new MessageHandler();
+    protected static SymTabStack symTabStack;
 
-    public void addMessageListener(MessageListener l) {
-        messageHandler.addMessageListener(l);
+    static {
+        messageHandler = new MessageHandler();
     }
 
-    public void removeMessageListener(MessageListener l) {
-        messageHandler.removeMessageListener(l);
+    protected ICode iCode;
+
+    public void addMessageListener(MessageListener listener) {
+        messageHandler.addMessageListener(listener);
+    }
+
+    public void removeMessageListener(MessageListener listener) {
+        messageHandler.removeMessageListener(listener);
     }
 
     public void sendMessage(Message message) {
         messageHandler.sendMessage(message);
     }
 
-    public abstract void process(ICode icode, SymTabStack symtab);
+    public abstract void process(ICode iCode, SymTabStack symTabStack)
+            throws Exception;
 }

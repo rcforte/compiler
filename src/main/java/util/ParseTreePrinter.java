@@ -37,6 +37,9 @@ public class ParseTreePrinter {
         printLine();
     }
 
+    /**
+     * Post order traversal for the syntax tree.
+     */
     private void printNode(ICodeNodeImpl node) {
         append(indentation);
         append("<" + node.toString());
@@ -50,6 +53,7 @@ public class ParseTreePrinter {
             printLine();
 
             printChildNodes(childNodes);
+
             append(indentation);
             append("</" + node.toString() + ">");
         } else {
@@ -63,11 +67,9 @@ public class ParseTreePrinter {
     private void printAttributes(ICodeNodeImpl node) {
         var saveIndentation = indentation;
         indentation += indent;
-
         for (var entry : node.entrySet()) {
             printAttribute(entry.getKey().toString(), entry.getValue());
         }
-
         indentation = saveIndentation;
     }
 

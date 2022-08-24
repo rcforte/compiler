@@ -8,7 +8,7 @@ import message.MessageType;
 
 public class CodeGenerator extends Backend {
     @Override
-    public void process(ICode icode, SymTabStack symtab) {
+    public void process(ICode iCode, SymTabStack symTabStack) {
         long t0 = System.currentTimeMillis();
         long t1 = System.currentTimeMillis();
         int instructionCount = 0;

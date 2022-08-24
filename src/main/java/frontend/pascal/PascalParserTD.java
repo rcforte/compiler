@@ -15,16 +15,15 @@ import static frontend.pascal.PascalErrorCode.UNEXPECTED_TOKEN;
 import static frontend.pascal.PascalTokenType.BEGIN;
 import static frontend.pascal.PascalTokenType.DOT;
 
-public class PascalParserTD
-        extends Parser {
-    protected final PascalErrorHandler errorHandler = new PascalErrorHandler();
+public class PascalParserTD extends Parser {
+    protected static final PascalErrorHandler errorHandler = new PascalErrorHandler();
 
     public PascalParserTD(Scanner scanner) {
         super(scanner);
     }
 
     public PascalParserTD(PascalParserTD parent) {
-        this(parent.getScanner());
+        super(parent.getScanner());
     }
 
     @Override
