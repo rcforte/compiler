@@ -7,42 +7,48 @@ import intermediate.SymTabStack;
 import message.Message;
 import message.MessageType;
 
-public class Executor extends Backend {
-    protected static int executionCount;
-    protected static RuntimeErrorHandler errorHandler;
+public class Executor extends Backend
+{
+   protected static int executionCount;
+   protected static RuntimeErrorHandler errorHandler;
 
-    static {
-        executionCount = 0;
-        errorHandler = new RuntimeErrorHandler();
-    }
+   static
+   {
+      executionCount = 0;
+      errorHandler = new RuntimeErrorHandler();
+   }
 
-    public Executor() {
-    }
+   public Executor()
+   {
+   }
 
-    public Executor(Executor parent) {
-        super();
-    }
+   public Executor(Executor parent)
+   {
+      super();
+   }
 
-    public RuntimeErrorHandler getErrorHandler() {
-        return errorHandler;
-    }
+   public RuntimeErrorHandler getErrorHandler()
+   {
+      return errorHandler;
+   }
 
-    @Override
-    public void process(ICode iCode, SymTabStack symTabStack) throws Exception {
-        this.symTabStack = symTabStack;
-        this.iCode = iCode;
+   @Override
+   public void process(ICode iCode, SymTabStack symTabStack) throws Exception
+   {
+      this.symTabStack = symTabStack;
+      this.iCode = iCode;
 
-        var startTime = System.currentTimeMillis();
-        var rootNode = iCode.getRoot();
+      var startTime = System.currentTimeMillis();
+      var rootNode = iCode.getRoot();
 
-        var statementExecutor = new StatementExecutor(this);
-        statementExecutor.execute(rootNode);
+      var statementExecutor = new StatementExecutor(this);
+      statementExecutor.execute(rootNode);
 
-        var endTime = System.currentTimeMillis();
-        var elapsed = (float) (endTime - startTime) / 1000f;
+      var endTime = System.currentTimeMillis();
+      var elapsed = (float) (endTime - startTime) / 1000f;
 
-        var runtimeErrors = errorHandler.getErrorCount();
-        sendMessage(new Message(MessageType.INTERPRETER_SUMMARY,
-                new Number[]{executionCount, runtimeErrors, elapsed}));
-    }
+      var runtimeErrors = errorHandler.getErrorCount();
+      sendMessage(new Message(MessageType.INTERPRETER_SUMMARY,
+         new Number[]{executionCount, runtimeErrors, elapsed}));
+   }
 }

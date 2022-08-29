@@ -1,4 +1,5 @@
 package intermediate;
 
-public interface ICodeKey {
+public interface ICodeKey
+{
 }

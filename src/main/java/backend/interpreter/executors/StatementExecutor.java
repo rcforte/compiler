@@ -9,32 +9,34 @@ import message.Message;
 import static intermediate.icodeimpl.ICodeKeyImpl.LINE;
 import static message.MessageType.SOURCE_LINE;
 
-public class StatementExecutor extends Executor {
-    public StatementExecutor(Executor parent) {
-        super(parent);
-    }
+public class StatementExecutor extends Executor
+{
+   public StatementExecutor(Executor parent)
+   {
+      super(parent);
+   }
 
-    public Object execute(ICodeNode node) {
-        sendSourceLineMessage(node);
+   public Object execute(ICodeNode node)
+   {
+      sendSourceLineMessage(node);
 
-        var nodeType = (ICodeNodeTypeImpl) node.getType();
-        switch (nodeType) {
-            case COMPOUND:
-                return new CompoundExecutor(this).execute(node);
-            case ASSIGN:
-                return new AssignmentExecutor(this).execute(node);
-            case NO_OP:
-                return null;
-
-            default: {
-                errorHandler.flag(node, RuntimeErrorCode.UNIMPLEMENTED_FEATURE, this);
-                return null;
+      return switch ((ICodeNodeTypeImpl) node.getType())
+         {
+            case COMPOUND -> new CompoundExecutor(this).execute(node);
+            case ASSIGN -> new AssignmentExecutor(this).execute(node);
+            case NO_OP -> null;
+            default ->
+            {
+               errorHandler.flag(node, RuntimeErrorCode.UNIMPLEMENTED_FEATURE, this);
+               yield null;
             }
-        }
-    }
+         };
+   }
 
-    private void sendSourceLineMessage(ICodeNode node) {
-        var lineNumber = node.getAttribute(LINE);
-        if (lineNumber != null) sendMessage(new Message(SOURCE_LINE, new Object[]{lineNumber, "<No line>"}));
-    }
+   private void sendSourceLineMessage(ICodeNode node)
+   {
+      var line = node.getAttribute(LINE);
+      if (line != null)
+         sendMessage(new Message(SOURCE_LINE, new Object[]{line, "<No line>"}));
+   }
 }

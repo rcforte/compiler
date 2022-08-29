@@ -1,4 +1,5 @@
 package intermediate;
 
-public interface ICodeNodeType {
+public interface ICodeNodeType
+{
 }
