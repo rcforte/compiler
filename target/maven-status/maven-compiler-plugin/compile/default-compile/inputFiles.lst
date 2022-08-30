@@ -13,6 +13,7 @@ C:\Users\rcfor\dev\code\compiler\src\main\java\frontend\pascal\parsers\Assignmen
 C:\Users\rcfor\dev\code\compiler\src\main\java\frontend\Scanner.java
 C:\Users\rcfor\dev\code\compiler\src\main\java\intermediate\symtabimpl\SymTabStackImpl.java
 C:\Users\rcfor\dev\code\compiler\src\main\java\frontend\pascal\parsers\CompoundStatementParser.java
+C:\Users\rcfor\dev\code\compiler\src\main\java\frontend\pascal\parsers\IfExecutor.java
 C:\Users\rcfor\dev\code\compiler\src\main\java\frontend\pascal\PascalScanner.java
 C:\Users\rcfor\dev\code\compiler\src\main\java\intermediate\icodeimpl\ICodeNodeImpl.java
 C:\Users\rcfor\dev\code\compiler\src\main\java\frontend\Token.java
@@ -42,11 +43,13 @@ C:\Users\rcfor\dev\code\compiler\src\main\java\intermediate\SymTabKey.java
 C:\Users\rcfor\dev\code\compiler\src\main\java\backend\BackendFactory.java
 C:\Users\rcfor\dev\code\compiler\src\main\java\intermediate\icodeimpl\ICodeKeyImpl.java
 C:\Users\rcfor\dev\code\compiler\src\main\java\intermediate\ICodeFactory.java
+C:\Users\rcfor\dev\code\compiler\src\main\java\backend\interpreter\executors\SelectExecutor.java
 C:\Users\rcfor\dev\code\compiler\src\main\java\frontend\EofToken.java
 C:\Users\rcfor\dev\code\compiler\src\main\java\frontend\Source.java
 C:\Users\rcfor\dev\code\compiler\src\main\java\frontend\pascal\tokens\PascalNumberToken.java
 C:\Users\rcfor\dev\code\compiler\src\main\java\intermediate\SymTabFactory.java
 C:\Users\rcfor\dev\code\compiler\src\main\java\util\ParseTreePrinter.java
+C:\Users\rcfor\dev\code\compiler\src\main\java\backend\interpreter\executors\LoopExecutor.java
 C:\Users\rcfor\dev\code\compiler\src\main\java\message\Message.java
 C:\Users\rcfor\dev\code\compiler\src\main\java\frontend\pascal\PascalToken.java
 C:\Users\rcfor\dev\code\compiler\src\main\java\backend\interpreter\executors\CompoundExecutor.java

@@ -13,6 +13,7 @@ frontend\TokenType.class
 message\MessageType.class
 frontend\pascal\parsers\ExpressionParser.class
 frontend\FrontendFactory.class
+backend\interpreter\executors\SelectExecutor.class
 backend\interpreter\executors\StatementExecutor$1.class
 Pascal.class
 frontend\Token.class
@@ -20,6 +21,7 @@ frontend\pascal\parsers\WhileStatementParser.class
 backend\interpreter\executors\AssignmentExecutor.class
 backend\interpreter\executors\ExpressionExecutor$1.class
 frontend\pascal\parsers\CaseStatementParser.class
+frontend\pascal\parsers\IfExecutor.class
 backend\interpreter\Executor.class
 frontend\Parser.class
 frontend\pascal\PascalScanner.class
@@ -31,6 +33,7 @@ frontend\pascal\PascalParserTD.class
 message\MessageHandler.class
 intermediate\symtabimpl\SymTabKeyImpl.class
 intermediate\ICodeNodeType.class
+backend\interpreter\executors\LoopExecutor.class
 backend\interpreter\executors\ExpressionExecutor.class
 frontend\pascal\parsers\CaseStatementParser$1.class
 intermediate\ICodeKey.class

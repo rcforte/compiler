@@ -54,22 +54,14 @@ public class StatementParser extends PascalParserTD
    {
       var terminatorSet = STATEMENT_START_SET.clone();
       terminatorSet.add(terminator);
-
-      while (!(token instanceof EofToken)
-         && (token.getType() != terminator))
+      while (!(token instanceof EofToken) && token.getType() != terminator)
       {
-         var statementNode = parse(token);
-         parentNode.addChild(statementNode);
-
+         parentNode.addChild(parse(token));
          token = currentToken();
-         var tokenType = token.getType();
-         if (tokenType == SEMICOLON)
-            token = nextToken();
-         else if (STATEMENT_START_SET.contains(tokenType))
-            errorHandler.flag(token, MISSING_SEMICOLON, this);
+         if (token.getType() == SEMICOLON) token = nextToken();
+         else if (STATEMENT_START_SET.contains(token.getType())) errorHandler.flag(token, MISSING_SEMICOLON, this);
          token = synchronize(terminatorSet);
       }
-
       if (token.getType() == terminator) token = nextToken();
       else errorHandler.flag(token, errorCode, this);
    }

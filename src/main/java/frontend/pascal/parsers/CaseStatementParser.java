@@ -66,7 +66,6 @@ public class CaseStatementParser extends StatementParser
          if (tokenType == SEMICOLON) token = nextToken();
          else if (CONSTANT_START_SET.contains(tokenType)) errorHandler.flag(token, MISSING_SEMICOLON, this);
       }
-
       if (token.getType() == END) token = nextToken();
       else errorHandler.flag(token, MISSING_END, this);
 
@@ -148,7 +147,6 @@ public class CaseStatementParser extends StatementParser
       var constantNode = ICodeFactory.createICodeNode(INTEGER_CONSTANT);
       var intValue = Integer.parseInt(value);
       if (sign == MINUS) intValue = -intValue;
-
       constantNode.setAttribute(VALUE, intValue);
       return constantNode;
    }
